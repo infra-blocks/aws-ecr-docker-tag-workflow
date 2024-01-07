@@ -1,0 +1,56 @@
+name: AWS ECR Docker Tag
+
+on:
+  workflow_call:
+    inputs:
+      aws-role:
+        type: string
+        description: The AWS role to assume by the CI
+        required: true
+      aws-region:
+        type: string
+        description: The AWS region of the role
+        required: true
+      image:
+        type: string
+        description: |
+          The docker image to tag. This can include the tag (repo:tag), the digest (repo@sha256:digest) or be just
+          the repository. In the latter case, docker defaults to the image with the "latest" tag.
+        required: true
+      tags:
+        type: string
+        description: |
+          A JSON array of tags to apply.
+        required: true
+    outputs:
+      published:
+        description: |
+          A JSON array of images published.
+        value: ${{ jobs.aws-ecr-docker-tag.outputs.published }}
+
+permissions:
+  id-token: write # Required to authenticate with AWS through GitHub OIDC
+
+jobs:
+  aws-ecr-docker-tag:
+    runs-on: ubuntu-22.04
+    permissions:
+      id-token: write
+    outputs:
+      published: ${{ steps.docker-tag.outputs.published }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ inputs.aws-role }}
+          aws-region: ${{ inputs.aws-region }}
+      - name: Login to Amazon ECR Public
+        id: login-ecr-public
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry-type: public
+      - id: docker-tag
+        uses: infrastructure-blocks/docker-tag-action@v1
+        with:
+          image: ${{ inputs.image }}
+          tags: ${{ inputs.tags }}

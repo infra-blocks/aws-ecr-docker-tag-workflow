@@ -1,29 +1,33 @@
-# github-actions-workflow-template
+# aws-ecr-docker-tag-workflow
 
-This repository is a template for creating reusable GitHub Actions Workflows. Go through the below checklist
-upon instantiating this template:
-- Rename and replace the content of [the placeholder](.github/workflows/reusable-workflow.yml) for your reusable workflow.
-- Edit this section and the usage section and replace with a meaningful description of your workflow
+This reusable workflow logs assumes an AWS role through GitHub OIDC, logs into AWS ECR and tags an existing
+image.
+
+At the time of this writing, only AWS ECR Public is supported.
 
 ## Usage
 
 ```yaml
-name: Template Usage
+name: AWS ECR Docker Tag
 
 on:
-  push: ~
+  push:
+    tags:
+      - "v**"
 
-# This needs to be a superset of what your workflow requires
 permissions:
-  pull-requests: read
+  id-token: write # Required to get a token from GitHub OIDC provider
 
 jobs:
-  example-job:
-    uses: infrastructure-blocks/github-actions-workflow-template/.github/workflows/reusable-workflow.yml@v1
+  aws-ecr-docker-tag:
+    uses: infrastructure-blocks/aws-ecr-docker-tag-workflow/.github/workflows/aws-ecr-docker-tag.yml@v1
     with:
-      example-input: Nobody cares
-    secrets:
-      example-secret: ${{ secrets.EXAMPLE }}
+      aws-role: ${{ vars.AWS-ROLE }}
+      aws-region: ${{ vars.AWS-REGION }}
+      # The image can be just the repo (which implies the "latest" tag), be provided with a tag (repo:tag)
+      # or a digest (repo@sha256:digest)
+      image: public.ecr.aws/<your-alias>/<your-repo>:<some-tag>
+      tags: '["new-tag-1", "new-tag-2"]'
 ```
 
 ### Releasing
