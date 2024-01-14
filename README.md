@@ -5,6 +5,35 @@ image.
 
 At the time of this writing, only AWS ECR Public is supported.
 
+## Inputs
+
+|    Name    | Required | Description                                                                                                                                                                                      |
+|:----------:|:--------:|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|  aws-role  |   true   | The AWS role to assume by the CI.                                                                                                                                                                |
+| aws-region |   true   | The AWS region of the role.                                                                                                                                                                      |
+|   image    |   true   | The docker image to tag. This can include the tag (repo:tag), the digest (repo@sha256:digest) or be just the repository. In the latter case, docker defaults to the image with the "latest" tag. |
+|    tags    |   true   | A stringified JSON array of tags to apply. -                                                                                                                                                     |
+
+## Secrets
+
+N/A
+
+## Outputs
+
+|   Name    | Description                                   |
+|:---------:|-----------------------------------------------|
+| published | A stringified JSON array of images published. |
+
+## Permissions
+
+|  Scope   | Level | Reason                                                |
+|:--------:|:-----:|-------------------------------------------------------|
+| id-token | write | Required to authenticate with AWS through GitHub OIDC |
+
+## Concurrency controls
+
+N/A
+
 ## Usage
 
 ```yaml
@@ -16,7 +45,7 @@ on:
       - "v**"
 
 permissions:
-  id-token: write # Required to get a token from GitHub OIDC provider
+  id-token: write
 
 jobs:
   aws-ecr-docker-tag:
@@ -24,8 +53,6 @@ jobs:
     with:
       aws-role: ${{ vars.AWS-ROLE }}
       aws-region: ${{ vars.AWS-REGION }}
-      # The image can be just the repo (which implies the "latest" tag), be provided with a tag (repo:tag)
-      # or a digest (repo@sha256:digest)
       image: public.ecr.aws/<your-alias>/<your-repo>:<some-tag>
       tags: '["new-tag-1", "new-tag-2"]'
 ```
