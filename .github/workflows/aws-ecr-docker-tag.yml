@@ -5,11 +5,11 @@ on:
     inputs:
       aws-role:
         type: string
-        description: The AWS role to assume by the CI
+        description: The AWS role to assume by the CI.
         required: true
       aws-region:
         type: string
-        description: The AWS region of the role
+        description: The AWS region of the role.
         required: true
       image:
         type: string
@@ -20,12 +20,12 @@ on:
       tags:
         type: string
         description: |
-          A JSON array of tags to apply.
+          A stringified JSON array of tags to apply.
         required: true
     outputs:
       published:
         description: |
-          A JSON array of images published.
+          A stringified JSON array of images published.
         value: ${{ jobs.aws-ecr-docker-tag.outputs.published }}
 
 permissions:
