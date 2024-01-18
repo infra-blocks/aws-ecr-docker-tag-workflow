@@ -34,6 +34,10 @@ N/A
 
 N/A
 
+## Timeouts
+
+N/A
+
 ## Usage
 
 ```yaml
@@ -49,7 +53,7 @@ permissions:
 
 jobs:
   aws-ecr-docker-tag:
-    uses: infrastructure-blocks/aws-ecr-docker-tag-workflow/.github/workflows/aws-ecr-docker-tag.yml@v1
+    uses: infrastructure-blocks/aws-ecr-docker-tag-workflow/.github/workflows/workflow.yml@v1
     with:
       aws-role: ${{ vars.AWS-ROLE }}
       aws-region: ${{ vars.AWS-REGION }}
