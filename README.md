@@ -14,7 +14,8 @@ At the time of this writing, only AWS ECR Public is supported.
 |  aws-role  |   true   | The AWS role to assume by the CI.                                                                                                                                                                |
 | aws-region |   true   | The AWS region of the role.                                                                                                                                                                      |
 |   image    |   true   | The docker image to tag. This can include the tag (repo:tag), the digest (repo@sha256:digest) or be just the repository. In the latter case, docker defaults to the image with the "latest" tag. |
-|    tags    |   true   | A stringified JSON array of tags to apply. -                                                                                                                                                     |
+|    skip    |  false   | A boolean indicating whether to skip the workflow. This is to workaround the required checks discrepancy when the workflow is skipped from the caller. It defaults to false.                     |
+|    tags    |   true   | A stringified JSON array of tags to apply.                                                                                                                                                       |
 
 ## Secrets
 
