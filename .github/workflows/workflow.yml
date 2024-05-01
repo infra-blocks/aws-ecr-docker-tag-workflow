@@ -37,14 +37,19 @@ permissions:
   id-token: write # Required to authenticate with AWS through GitHub OIDC
 
 jobs:
+<<<<<<< HEAD
   aws-ecr-docker-tag:
     if: ${{ !inputs.skip }}
+=======
+  example-job:
+>>>>>>> template/master
     runs-on: ubuntu-22.04
     permissions:
       id-token: write
     outputs:
       published: ${{ steps.docker-tag.outputs.published }}
     steps:
+<<<<<<< HEAD
       - uses: actions/checkout@v4
       - uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -60,3 +65,14 @@ jobs:
         with:
           image: ${{ inputs.image }}
           tags: ${{ inputs.tags }}
+=======
+      # This condition should be on every step.
+      - if: ${{ !inputs.skip }}
+        id: example-step
+        name: Example step
+        env:
+          BIG_SECRET: ${{ secrets.example-secret }}
+        run: |
+          echo "your input: ${{ inputs.example-input }}"
+          echo "example-output=toto" >> "${GITHUB_OUTPUT}"
+>>>>>>> template/master

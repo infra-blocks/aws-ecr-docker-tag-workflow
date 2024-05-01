@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 # aws-ecr-docker-tag-workflow
 [![Git Tag Semver From Label](https://github.com/infrastructure-blocks/aws-ecr-docker-tag-workflow/actions/workflows/git-tag-semver-from-label.yml/badge.svg)](https://github.com/infrastructure-blocks/aws-ecr-docker-tag-workflow/actions/workflows/git-tag-semver-from-label.yml)
 [![Update From Template](https://github.com/infrastructure-blocks/aws-ecr-docker-tag-workflow/actions/workflows/update-from-template.yml/badge.svg)](https://github.com/infrastructure-blocks/aws-ecr-docker-tag-workflow/actions/workflows/update-from-template.yml)
+=======
+# github-actions-workflow-template
+[![Release](https://github.com/infrastructure-blocks/github-actions-workflow-template/actions/workflows/release.yml/badge.svg)](https://github.com/infrastructure-blocks/github-actions-workflow-template/actions/workflows/release.yml)
+[![Trigger Update From Template](https://github.com/infrastructure-blocks/github-actions-workflow-template/actions/workflows/trigger-update-from-template.yml/badge.svg)](https://github.com/infrastructure-blocks/github-actions-workflow-template/actions/workflows/trigger-update-from-template.yml)
+>>>>>>> template/master
 
 This reusable workflow logs assumes an AWS role through GitHub OIDC, logs into AWS ECR and tags an existing
 image.
