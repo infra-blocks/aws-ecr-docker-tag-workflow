@@ -38,24 +38,27 @@ permissions:
 
 jobs:
   aws-ecr-docker-tag:
-    if: ${{ !inputs.skip }}
     runs-on: ubuntu-22.04
     permissions:
       id-token: write
     outputs:
       published: ${{ steps.docker-tag.outputs.published }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: aws-actions/configure-aws-credentials@v4
+      - if: ${{ !inputs.skip }}
+        uses: actions/checkout@v4
+      - if: ${{ !inputs.skip }}
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ inputs.aws-role }}
           aws-region: ${{ inputs.aws-region }}
-      - name: Login to Amazon ECR Public
+      - if: ${{ !inputs.skip }}
+        name: Login to Amazon ECR Public
         id: login-ecr-public
         uses: aws-actions/amazon-ecr-login@v2
         with:
           registry-type: public
-      - id: docker-tag
+      - if: ${{ !inputs.skip }}
+        id: docker-tag
         uses: infrastructure-blocks/docker-tag-action@v1
         with:
           image: ${{ inputs.image }}
