@@ -59,7 +59,7 @@ jobs:
           registry-type: public
       - if: ${{ !inputs.skip }}
         id: docker-tag
-        uses: infrastructure-blocks/docker-tag-action@v1
+        uses: infra-blocks/docker-tag-action@v1
         with:
           image: ${{ inputs.image }}
           tags: ${{ inputs.tags }}
