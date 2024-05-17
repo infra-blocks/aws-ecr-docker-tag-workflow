@@ -1,6 +1,6 @@
 # aws-ecr-docker-tag-workflow
-[![Release](https://github.com/infrastructure-blocks/aws-ecr-docker-tag-workflow/actions/workflows/release.yml/badge.svg)](https://github.com/infrastructure-blocks/aws-ecr-docker-tag-workflow/actions/workflows/release.yml)
-[![Update From Template](https://github.com/infrastructure-blocks/aws-ecr-docker-tag-workflow/actions/workflows/update-from-template.yml/badge.svg)](https://github.com/infrastructure-blocks/aws-ecr-docker-tag-workflow/actions/workflows/update-from-template.yml)
+[![Release](https://github.com/infra-blocks/aws-ecr-docker-tag-workflow/actions/workflows/release.yml/badge.svg)](https://github.com/infra-blocks/aws-ecr-docker-tag-workflow/actions/workflows/release.yml)
+[![Update From Template](https://github.com/infra-blocks/aws-ecr-docker-tag-workflow/actions/workflows/update-from-template.yml/badge.svg)](https://github.com/infra-blocks/aws-ecr-docker-tag-workflow/actions/workflows/update-from-template.yml)
 
 This reusable workflow logs assumes an AWS role through GitHub OIDC, logs into AWS ECR and tags an existing
 image.
@@ -56,7 +56,7 @@ permissions:
 
 jobs:
   aws-ecr-docker-tag:
-    uses: infrastructure-blocks/aws-ecr-docker-tag-workflow/.github/workflows/workflow.yml@v1
+    uses: infra-blocks/aws-ecr-docker-tag-workflow/.github/workflows/workflow.yml@v1
     with:
       aws-role: ${{ vars.AWS-ROLE }}
       aws-region: ${{ vars.AWS-REGION }}
@@ -67,4 +67,4 @@ jobs:
 ### Releasing
 
 The releasing is handled at git level with semantic versioning tags. Those are automatically generated and managed
-by the [git-tag-semver-from-label-workflow](https://github.com/infrastructure-blocks/git-tag-semver-from-label-workflow).
+by the [git-tag-semver-from-label-workflow](https://github.com/infra-blocks/git-tag-semver-from-label-workflow).
